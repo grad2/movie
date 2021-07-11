@@ -1,8 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:untitled/data/movie_source.dart';
-import 'package:untitled/domain/details_movie.dart';
 import 'package:untitled/domain/movie.dart';
+import 'package:untitled/presentation/widget/widget_logic.dart';
 
 import 'movie_view.dart';
 
@@ -13,15 +12,6 @@ class MovieItem extends StatelessWidget {
     Key? key,
     required this.movie
   }) : super(key: key);
-
-  String getImage(){
-    if(movie.backdropPath.toString() == 'null'){
-      return 'https://serial-go.org/uploads/no_poster.jpg';
-    }else{
-      return 'https://www.themoviedb.org/t/p/w220_and_h330_face' +
-          movie.backdropPath.toString();
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -45,7 +35,7 @@ class MovieItem extends StatelessWidget {
                 child: Flex(
                     direction: Axis.vertical,
                   children: [
-                    Image.network(getImage(),
+                    Image.network(getImage(movie),
                         height: 170.0, fit: BoxFit.fitHeight),
                     Text(
                       movie.releaseDate.toString(),

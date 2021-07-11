@@ -5,6 +5,7 @@ import 'package:untitled/data/movie_source.dart';
 import 'package:untitled/domain/details_movie.dart';
 import 'package:untitled/domain/movie.dart';
 import 'package:untitled/presentation/widget/stars.dart';
+import 'package:untitled/presentation/widget/widget_logic.dart';
 
 class MovieV extends StatefulWidget {
   MovieV({Key? key, required this.movie}) : super(key: key);
@@ -31,28 +32,6 @@ class MovieView extends State<MovieV>{
       detailsMovie = DetailsMovie.fromJson(getDetailsMovie!);
     });
   }
-  String setGenres(){
-    List list = [];
-    String main = '';
-    String slash = ' / ';
-    detailsMovie?.genres?.forEach((element) {
-      if (main == ''){
-        main = element.name;
-      }else{
-        main = '$main $slash ${element.name}';
-      }
-      list.add(element.name);
-    });
-    return main;
-  }
-  String getImage(){
-    if(movie.backdropPath.toString() == 'null'){
-      return 'https://serial-go.org/uploads/no_poster.jpg';
-    }else{
-      return 'https://www.themoviedb.org/t/p/w220_and_h330_face' +
-          movie.backdropPath.toString();
-    }
-  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -66,7 +45,7 @@ class MovieView extends State<MovieV>{
             direction: Axis.vertical,
             children: [
               Image.network(
-                  getImage(),
+                  getImage(movie),
                   //height: double.infinity,
                   height: 350.0,
                   fit: BoxFit.cover
@@ -142,7 +121,7 @@ class MovieView extends State<MovieV>{
                             ),
                           ),
                           Text(
-                            setGenres(),
+                            setGenres(detailsMovie),
                             maxLines: 10,
                             overflow: TextOverflow.ellipsis,
                             style: const TextStyle(
