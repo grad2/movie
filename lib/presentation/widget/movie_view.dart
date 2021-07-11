@@ -45,6 +45,14 @@ class MovieView extends State<MovieV>{
     });
     return main;
   }
+  String getImage(){
+    if(movie.backdropPath.toString() == 'null'){
+      return 'https://serial-go.org/uploads/no_poster.jpg';
+    }else{
+      return 'https://www.themoviedb.org/t/p/w220_and_h330_face' +
+          movie.backdropPath.toString();
+    }
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -58,8 +66,7 @@ class MovieView extends State<MovieV>{
             direction: Axis.vertical,
             children: [
               Image.network(
-                  'https://www.themoviedb.org/t/p/w220_and_h330_face' +
-                      movie.backdropPath.toString(),
+                  getImage(),
                   //height: double.infinity,
                   height: 350.0,
                   fit: BoxFit.cover

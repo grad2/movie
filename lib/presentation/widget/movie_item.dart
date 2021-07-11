@@ -14,6 +14,14 @@ class MovieItem extends StatelessWidget {
     required this.movie
   }) : super(key: key);
 
+  String getImage(){
+    if(movie.backdropPath.toString() == 'null'){
+      return 'https://serial-go.org/uploads/no_poster.jpg';
+    }else{
+      return 'https://www.themoviedb.org/t/p/w220_and_h330_face' +
+          movie.backdropPath.toString();
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -37,7 +45,7 @@ class MovieItem extends StatelessWidget {
                 child: Flex(
                     direction: Axis.vertical,
                   children: [
-                    Image.network('https://www.themoviedb.org/t/p/w220_and_h330_face' + movie.backdropPath.toString(),
+                    Image.network(getImage(),
                         height: 170.0, fit: BoxFit.fitHeight),
                     Text(
                       movie.releaseDate.toString(),
