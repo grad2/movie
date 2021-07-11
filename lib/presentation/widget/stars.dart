@@ -7,19 +7,18 @@ import 'package:untitled/domain/movie.dart';
 import 'movie_view.dart';
 
 class Stars extends StatelessWidget {
-  final Movie movie;
+  final double average;
 
   const Stars({
     Key? key,
-    required this.movie
+    required this.average
   }) : super(key: key);
 
-  IconData getStar(int position){
+  IconData? getStar(int position){
     //7.41 // 3.7
     IconData starBorder = Icons.star_border_rounded;
     IconData starHalf = Icons.star_half_rounded;
     IconData starRate = Icons.star_rate_rounded;
-    double average = movie.voteAverage!;
 
     if(average >= position * 2){
       return starRate;
@@ -29,11 +28,11 @@ class Stars extends StatelessWidget {
       }else{
         return starBorder;
       }
-
+    }else{
+      return starRate;
     }
-    return starRate;
-  }
 
+  }
 
   @override
   Widget build(BuildContext context) {

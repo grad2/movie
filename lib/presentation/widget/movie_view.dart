@@ -71,7 +71,7 @@ class MovieView extends State<MovieV>{
                               ),
                             ),
                           ),
-                          Stars(movie: movie,),
+                          Stars(average: movie.voteAverage!),
                         ],
                       ),
                       Flex(
