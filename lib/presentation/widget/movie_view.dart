@@ -48,127 +48,133 @@ class MovieView extends State<MovieV>{
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(movie.originalTitle.toString()),
-      ),
-      body: Flex(
-        direction: Axis.vertical,
-        children: [
-          Image.network('https://www.themoviedb.org/t/p/w220_and_h330_face' + movie.backdropPath.toString(),
-                //height: double.infinity,
-              height: 350.0,
-              fit: BoxFit.cover
-          ),
-          Container(
-              padding: const EdgeInsets.all(15.0),
-              child: Flex(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                direction: Axis.vertical,
-                children: [
-                  Flex(
-                    mainAxisSize: MainAxisSize.max,
+        appBar: AppBar(
+          title: Text(movie.originalTitle.toString()),
+        ),
+
+        body: SingleChildScrollView(
+          scrollDirection: Axis.vertical,
+          child: Flex(
+            direction: Axis.vertical,
+            children: [
+              Image.network(
+                  'https://www.themoviedb.org/t/p/w220_and_h330_face' +
+                      movie.backdropPath.toString(),
+                  //height: double.infinity,
+                  height: 350.0,
+                  fit: BoxFit.cover
+              ),
+              Container(
+                  padding: const EdgeInsets.all(15.0),
+                  child: Flex(
                     crossAxisAlignment: CrossAxisAlignment.start,
-                    direction: Axis.horizontal,
+                    direction: Axis.vertical,
                     children: [
-                      Flexible(
-                          child: Text(
-                            movie.originalTitle.toString(),
-                            overflow: TextOverflow.ellipsis,
-                            style: const TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 25.0,
+                      Flex(
+                        mainAxisSize: MainAxisSize.max,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        direction: Axis.horizontal,
+                        children: [
+                          Flexible(
+                            child: Text(
+                              movie.originalTitle.toString(),
+                              overflow: TextOverflow.ellipsis,
+                              style: const TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 25.0,
+                              ),
                             ),
                           ),
+                          Stars(movie: movie,),
+                        ],
                       ),
-                      Stars(movie: movie,),
-                    ],
-                  ),
-                  Flex(
-                    mainAxisSize: MainAxisSize.max,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    direction: Axis.vertical,
-                    children: [
-                      Text(
-                        '${detailsMovie?.releaseDate}',
-                        maxLines: 10,
-                        overflow: TextOverflow.ellipsis,
-                        style: const TextStyle(
-                            fontSize: 17,
-                            color: Colors.blueGrey,
+                      Flex(
+                        mainAxisSize: MainAxisSize.max,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        direction: Axis.vertical,
+                        children: [
+                          Text(
+                            '${detailsMovie?.releaseDate}',
+                            maxLines: 10,
+                            overflow: TextOverflow.ellipsis,
+                            style: const TextStyle(
+                              fontSize: 17,
+                              color: Colors.blueGrey,
 
-                        ),
+                            ),
+                          ),
+                        ],
                       ),
-                    ],
-                  ),
-                  Flex(
-                    mainAxisSize: MainAxisSize.max,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    direction: Axis.vertical,
-                    children: [
-                      Text(
-                        movie.overview.toString(),
-                        maxLines: 10,
-                        overflow: TextOverflow.ellipsis,
-                        style: const TextStyle(
-                            fontSize: 17,
-                            color: Colors.blueGrey
-                        ),
+                      Flex(
+                        mainAxisSize: MainAxisSize.max,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        direction: Axis.vertical,
+                        children: [
+                          Text(
+                            movie.overview.toString(),
+                            maxLines: 10,
+                            overflow: TextOverflow.ellipsis,
+                            style: const TextStyle(
+                                fontSize: 17,
+                                color: Colors.blueGrey
+                            ),
+                          ),
+                        ],
                       ),
-                    ],
-                  ),
-                  Flex(
-                    mainAxisSize: MainAxisSize.max,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    direction: Axis.vertical,
-                    children: [
-                      const Text(
-                        'Genres',
-                        overflow: TextOverflow.ellipsis,
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 20.0,
-                        ),
+                      Flex(
+                        mainAxisSize: MainAxisSize.max,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        direction: Axis.vertical,
+                        children: [
+                          const Text(
+                            'Genres',
+                            overflow: TextOverflow.ellipsis,
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 20.0,
+                            ),
+                          ),
+                          Text(
+                            setGenres(),
+                            maxLines: 10,
+                            overflow: TextOverflow.ellipsis,
+                            style: const TextStyle(
+                                fontSize: 17,
+                                color: Colors.blueGrey
+                            ),
+                          ),
+                        ],
                       ),
-                      Text(
-                        setGenres(),
-                        maxLines: 10,
-                        overflow: TextOverflow.ellipsis,
-                        style: const TextStyle(
-                          fontSize: 17,
-                            color: Colors.blueGrey
-                        ),
-                      ),
-                    ],
-                  ),
-                  Flex(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    direction: Axis.vertical,
-                    children: [
-                      const Text(
-                        'Run time',
-                        overflow: TextOverflow.ellipsis,
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 20.0,
+                      Flex(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        direction: Axis.vertical,
+                        children: [
+                          const Text(
+                            'Run time',
+                            overflow: TextOverflow.ellipsis,
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 20.0,
 
-                        ),
+                            ),
+                          ),
+                          Text(
+                            '${detailsMovie?.runtime} min',
+                            maxLines: 10,
+                            overflow: TextOverflow.ellipsis,
+                            style: const TextStyle(
+                                fontSize: 17,
+                                color: Colors.blueGrey
+                            ),
+                          )
+                        ],
                       ),
-                      Text(
-                        '${detailsMovie?.runtime} min',
-                        maxLines: 10,
-                        overflow: TextOverflow.ellipsis,
-                        style: const TextStyle(
-                          fontSize: 17,
-                          color: Colors.blueGrey
-                        ),
-                      )
                     ],
-                  ),
-                ],
+                  )
               )
-          )
-        ],
-      ),
+            ],
+          ),)
+
     );
   }
 }
