@@ -1,9 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:untitled/domain/movie.dart';
-import 'package:untitled/presentation/widget/widget_logic.dart';
+import 'package:untitled/domain/entity/movie.dart';
 
-import 'movie_view.dart';
+import '../screen/screen_movie.dart';
 
 class MovieItem extends StatelessWidget {
   final Movie movie;
@@ -21,7 +20,7 @@ class MovieItem extends StatelessWidget {
            context,
            MaterialPageRoute(
              /// переход на другую страницу
-             builder: (context) => MovieV(movie: movie), //goes to the next page & passes value of url and title to it
+             builder: (context) => ScreenMovie(movie: movie), //goes to the next page & passes value of url and title to it
            ),
          );
        },
@@ -35,7 +34,7 @@ class MovieItem extends StatelessWidget {
                 child: Flex(
                     direction: Axis.vertical,
                   children: [
-                    Image.network(getImage(movie),
+                    Image.network(movie.backdropPath,
                         height: 170.0, fit: BoxFit.fitHeight),
                     Text(
                       movie.releaseDate.toString(),
@@ -50,7 +49,7 @@ class MovieItem extends StatelessWidget {
                       direction: Axis.horizontal,
                       children: <Widget>[
                         Text(
-                          movie.popularity.toString(),
+                          movie.popularity.toString() ,
                           style: const TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: 10.0,

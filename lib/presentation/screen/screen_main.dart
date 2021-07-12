@@ -2,23 +2,9 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:untitled/data/movie_source.dart';
-import 'package:untitled/domain/movie.dart';
+import 'package:untitled/domain/entity/movie.dart';
 import 'package:untitled/presentation/widget/movie_item.dart';
 
-class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
-    );
-  }
-}
 
 
 class MyHomePage extends StatefulWidget {
@@ -30,10 +16,14 @@ class MyHomePage extends StatefulWidget {
 }
 
 class MyHomeRxPage extends State<MyHomePage>  {
+
+  /// Запихивую в блок
   List<Movie> movie = [];
   final ScrollController _controller = ScrollController();
   int page = 1;
 
+
+  /// Запихивую в блок
   @override
   void initState() {
     super.initState();
@@ -41,7 +31,7 @@ class MyHomeRxPage extends State<MyHomePage>  {
     _controller.addListener(_onScroll);
   }
 
-
+  /// Запихивую в блок
   void _onScroll() {
     if (_controller.position.pixels == _controller.position.maxScrollExtent) {
       setState(() {
@@ -50,13 +40,14 @@ class MyHomeRxPage extends State<MyHomePage>  {
       });
     }
   }
-
+  /// Запихивую в блок
   void addMovie(int page) async {
     Map<String, dynamic>? getMovie =  await MovieSource().getMovieUrl(page);
     setState(() {
       movie.addAll(Movie.listMovie(getMovie!));
     });
   }
+  /// Оставить
   @override
   Widget build(BuildContext context) {
     return Scaffold(

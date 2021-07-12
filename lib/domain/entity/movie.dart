@@ -1,7 +1,7 @@
 class Movie {
 
   bool? adult;
-  String? backdropPath;
+  String backdropPath;
   List<int>? genreIds;
   int id;
   String? originalLanguage;
@@ -19,7 +19,7 @@ class Movie {
   Movie.fromJson(Map<String, dynamic> json)
       :
         adult = json['adult'],
-        backdropPath = json['backdrop_path'],
+        backdropPath = _getImage(json),
         genreIds = json['genre_ids'].cast<int>(),
         id = json['id'],
         originalLanguage = json['original_language'],
@@ -39,5 +39,13 @@ class Movie {
       movie.add(Movie.fromJson(v));
     });
     return movie;
+  }
+  static _getImage(Map<String, dynamic> json) {
+    if (json['backdrop_path'].toString() == 'null') {
+      return 'https://serial-go.org/uploads/no_poster.jpg';
+    } else {
+      return 'https://www.themoviedb.org/t/p/w220_and_h330_face' +
+          json['backdrop_path'].toString();
+    }
   }
 }

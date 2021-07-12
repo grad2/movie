@@ -2,23 +2,21 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:untitled/data/movie_source.dart';
-import 'package:untitled/domain/details_movie.dart';
-import 'package:untitled/domain/movie.dart';
-import 'package:untitled/presentation/widget/stars.dart';
-import 'package:untitled/presentation/widget/widget_logic.dart';
+import 'package:untitled/domain/entity/details_movie.dart';
+import 'package:untitled/domain/entity/movie.dart';
+import 'package:untitled/presentation/widget/average_stars_item.dart';
 
-class MovieV extends StatefulWidget {
-  MovieV({Key? key, required this.movie}) : super(key: key);
-  Movie movie;
+class ScreenMovie extends StatefulWidget {
+  final Movie movie;
+
+  const ScreenMovie({Key? key, required this.movie}) : super(key: key);
+
   @override
-  State<MovieV> createState() => MovieView(movie);
+  State<ScreenMovie> createState() => _ScreenMovie();
 }
 
-class MovieView extends State<MovieV>{
-  final Movie movie;
+class _ScreenMovie extends State<ScreenMovie>{
   DetailsMovie? detailsMovie;
-
-  MovieView(this.movie);
 
   @override
   void initState() {
@@ -27,7 +25,7 @@ class MovieView extends State<MovieV>{
   }
 
   void setDetailsMovie() async {
-    Map<String, dynamic>? getDetailsMovie =  await MovieSource().getDetailsMovie(movie.id);
+    Map<String, dynamic>? getDetailsMovie =  await MovieSource().getDetailsMovie(widget.movie.id);
     setState(() {
       detailsMovie = DetailsMovie.fromJson(getDetailsMovie!);
     });
@@ -36,7 +34,7 @@ class MovieView extends State<MovieV>{
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text(movie.originalTitle.toString()),
+          title: Text(widget.movie.originalTitle.toString()),
         ),
 
         body: SingleChildScrollView(
@@ -45,7 +43,7 @@ class MovieView extends State<MovieV>{
             direction: Axis.vertical,
             children: [
               Image.network(
-                  getImage(movie),
+                  widget.movie.backdropPath.toString(),
                   //height: double.infinity,
                   height: 350.0,
                   fit: BoxFit.cover
@@ -63,7 +61,7 @@ class MovieView extends State<MovieV>{
                         children: [
                           Flexible(
                             child: Text(
-                              movie.originalTitle.toString(),
+                              widget.movie.originalTitle.toString(),
                               overflow: TextOverflow.ellipsis,
                               style: const TextStyle(
                                 fontWeight: FontWeight.bold,
@@ -71,7 +69,7 @@ class MovieView extends State<MovieV>{
                               ),
                             ),
                           ),
-                          Stars(average: movie.voteAverage!),
+                          AverageStarsItem(average: widget.movie.voteAverage!),
                         ],
                       ),
                       Flex(
@@ -97,7 +95,7 @@ class MovieView extends State<MovieV>{
                         direction: Axis.vertical,
                         children: [
                           Text(
-                            movie.overview.toString(),
+                            widget.movie.overview.toString(),
                             maxLines: 10,
                             overflow: TextOverflow.ellipsis,
                             style: const TextStyle(
@@ -121,7 +119,7 @@ class MovieView extends State<MovieV>{
                             ),
                           ),
                           Text(
-                            setGenres(detailsMovie),
+                            detailsMovie!.genres.toString(),
                             maxLines: 10,
                             overflow: TextOverflow.ellipsis,
                             style: const TextStyle(
