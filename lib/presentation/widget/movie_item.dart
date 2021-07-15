@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:untitled/domain/entity/movie.dart';
 
-import '../screen/screen_movie.dart';
+import '../screen/movie_screen.dart';
 
 class MovieItem extends StatelessWidget {
   final Movie movie;
@@ -20,7 +20,7 @@ class MovieItem extends StatelessWidget {
            context,
            MaterialPageRoute(
              /// переход на другую страницу
-             builder: (context) => ScreenMovie(movie: movie), //goes to the next page & passes value of url and title to it
+             builder: (context) => MovieScreen(id: movie.id), //goes to the next page & passes value of url and title to it
            ),
          );
        },

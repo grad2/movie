@@ -61,7 +61,7 @@ class DetailsMovie {
   DetailsMovie.fromJson(Map<String, dynamic> json)
       :
         adult = json['adult'],
-        backdropPath = json['backdrop_path'],
+        backdropPath = _getImage(json),
         belongsToCollection = null,
         budget = json['budget'],
         genres = _genres(json),
@@ -125,6 +125,14 @@ class DetailsMovie {
         spokenLanguages.add(SpokenLanguages.fromJson(v));
       });
       return spokenLanguages;
+    }
+  }
+  static _getImage(Map<String, dynamic> json) {
+    if (json['backdrop_path'].toString() == 'null') {
+      return 'https://serial-go.org/uploads/no_poster.jpg';
+    } else {
+      return 'https://www.themoviedb.org/t/p/w220_and_h330_face' +
+          json['backdrop_path'].toString();
     }
   }
 }
